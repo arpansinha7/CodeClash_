@@ -1,0 +1,113 @@
+[
+    {
+        "id": 1,
+        "title": "Add Two Numbers", 
+        "difficulty": "easy",
+        "description": "Given Two Numbers a & b, return their sum",
+        "functionName": "solution",
+        "starterCode": "function solution(a,b) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": [1,2], "expected": 3},
+            {"input": [10,20], "expected": 30},
+            {"input": [-5,5], "expected": 0}
+        ]
+    },
+
+    {
+        "id": 2,
+        "title": "Max Element", 
+        "difficulty": "easy",
+        "description": "Given an array of integers, return the largest element",
+        "functionName": "solution",
+        "starterCode": "function solution(arr) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": [[1,2,3,4,5]], "expected": 5},
+            {"input": [[10,20,90,2,34,32,34,8]], "expected": 90},
+            {"input": [[42]], "expected": 42}
+        ]
+    },
+
+    {
+        "id": 3,
+        "title": "Min Element", 
+        "difficulty": "easy",
+        "description": "Given an array of integers, return the smallest element",
+        "functionName": "solution",
+        "starterCode": "function solution(arr) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": [[9,42,15,14,2,1,2]], "expected": 1},
+            {"input": [[20,50,90,70,24,21,34]], "expected": 20},
+            {"input": [[98]], "expected": 98}
+        ]
+    },
+
+    {
+        "id": 4,
+        "title": "Is Palindrome", 
+        "difficulty": "medium",
+        "description": "Given a string of lowercase characters, return true if it is a palindrome otherwise return false",
+        "functionName": "solution",
+        "starterCode": "function solution(str) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": ["racecar"], "expected": true},
+            {"input": ["helloworld"], "expected": false},
+            {"input": ["malayalam"], "expected": true}
+        ]
+    },
+
+    {
+        "id": 5,
+        "title": "Count Digits", 
+        "difficulty": "medium",
+        "description": "Given a number, the task is to calculate the number of digits in the number.",
+        "functionName": "solution",
+        "starterCode": "function solution(num) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": [56], "expected": 2},
+            {"input": [12345], "expected": 5},
+            {"input": [0], "expected": 1}
+        ]
+    },
+
+    {
+        "id": 6,
+        "title": "Count Vowels", 
+        "difficulty": "medium",
+        "description": "Given a string, The task is to calculate the number of vowels in the string.",
+        "functionName": "solution",
+        "starterCode": "function solution(str) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": ["Hello World"], "expected": 3},
+            {"input": ["America"], "expected": 4},
+            {"input": ["rhythm"], "expected": 0}
+        ]
+    },
+
+    {
+        "id": 7,
+        "title": "Binary Search", 
+        "difficulty": "hard",
+        "description": "Given an integer array nums and an integer K. the task is to find wether the integer K is present in array or not. Return true if present otherwise false",
+        "functionName": "solution",
+        "starterCode": "function solution(arr, K) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": [[1,2,3,4,5,6,7,8], 7], "expected": true},
+            {"input": [[2,4,6,8,10,15,20], 95], "expected": false},
+            {"input": [[10,20,30,40,50,60,70,80], 30], "expected": true}
+        ]
+    },
+
+        {
+        "id": 8,
+        "title": "", 
+        "difficulty": "hard",
+        "description": "Given an integer array nums and an integer K. the task is to find wether the integer K is present in array or not. Return true if present otherwise false",
+        "functionName": "solution",
+        "starterCode": "function solution(arr, K) {\n  //Your Code here\n}",
+        "testCases": [
+            {"input": [[1,2,3,4,5,6,7,8], 7], "expected": true},
+            {"input": [[2,4,6,8,10,15,20], 95], "expected": false},
+            {"input": [[10,20,30,40,50,60,70,80], 30], "expected": true}
+        ]
+    }
+]
