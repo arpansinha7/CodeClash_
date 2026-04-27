@@ -9,7 +9,12 @@ import {runCode} from './codeRunner.js';
 const questions = JSON.parse(fs.readFileSync('./questions.json'));
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:35643",
+        methods: ["GET", "POST"]
+    }
+});
 const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,7 +62,7 @@ function merge(left, right)
 function mergeSort(arr)
 {
     if(arr.length<=1) return arr;
-    const mid = arr.length/2;
+    const mid = Math.floor(arr.length/2);
    
     return merge(mergeSort(arr.slice(0, mid)), mergeSort(arr.slice(mid)));
 
@@ -87,7 +92,7 @@ function getQuestions()
     else
         pool = hard;
 
-    const shuffled = fisherYates(pool);
+    const shuffled = fisherYates(questions);
     return shuffled.slice(0, 3);
 
 }
@@ -96,7 +101,7 @@ io.on('connection', (socket) => {
     console.log("User Joined :", socket.id);
 
     socket.on("create-room", ({roomId, name}) => {
-
+        console.log({roomId, name});
         if(rooms[roomId])
         {
             socket.emit("error", "Room Already Exists!");
@@ -169,6 +174,35 @@ io.on('connection', (socket) => {
         io.to(roomId).emit("game-started", room.questions);
     });
 
+    socket.on("register-player",({roomId, playerName}) => {
+        console.log("Register player recieved: ", playerName, roomId);
+        const room = rooms[roomId];
+        console.log("Room: ", room);
+        if(!room)
+        {
+            console.log("Room not found:", roomId);
+            return;
+        }
+
+        const player = room.players.find(p => p.name === playerName);
+        if(player)
+        {
+            player.id = socket.id;
+
+            socket.join(roomId);
+
+            console.log("Player re-registered:", playerName, socket.id);
+
+
+            const sorted = mergeSort([...room.players]);
+            socket.emit("leaderboard-update", sorted);
+        }
+        else
+        {
+            console.log("Player name not found in room: ", playerName);
+        }
+    });
+
     socket.on("submit-code", ({roomId, code, questionId}) => {
         console.log("Question recieved: ", roomId, questionId);
         const room = rooms[roomId];
@@ -177,14 +211,21 @@ io.on('connection', (socket) => {
         const player = room.players.find(p => p.id === socket.id);
 
         if(!player)
+        {
+            console.log("Player not found for socket: ", socket.id);
             return;
+        }
 
         const question = room.questions.find(q => q.id == questionId);
+        console.log("Room Questions: ", room.questions.map(q => q.id));
+        console.log("Looking for question id: ", questionId, typeof questionId);
         console.log("Question found: ", question);
+     
         const {result, passed, total, allPassed} = runCode(code, question);
+        console.log(` Passed ${passed}/${total} test cases | All Passed: ${allPassed}`);
         console.log("Run code result: ", passed, total);
         const timeTaken = Date.now() - room.startTime;
-        const score = allPassed ? Math.max(100, Math.floor(1000*(1-timeTaken/300000))):0;
+        const score = allPassed ? Math.max(0, Math.floor(1000*(1-timeTaken/300000))):0;
 
         player.score += score;
         player.submissions += 1;
@@ -207,14 +248,27 @@ io.on('connection', (socket) => {
     });
     
     socket.on("disconnect", () => {
-        for(let roomId in rooms)
-        {
-            rooms[roomId].players = rooms[roomId].players.filter(p => p.id !== socket.id);
+        for (let roomId in rooms) {
+            const room = rooms[roomId];
+            
+            const player = room.players.find(p => p.id === socket.id);
+            
+            if (player) {
+                player.id = null; 
+                io.to(roomId).emit("Players-Update", room.players);
+            }
 
-            io.to(roomId).emit("Players-Update", rooms[roomId].players);
-
-            if(rooms[roomId].players.length === 0)
-                delete rooms[roomId];
+            const isRoomEmpty = room.players.every(p => p.id === null);
+            
+            if (isRoomEmpty) 
+            {
+                setTimeout(() => {
+                    if (rooms[roomId] && rooms[roomId].players.every(p => p.id === null)) {
+                        delete rooms[roomId];
+                        console.log(`Room ${roomId} deleted due to abandonment.`);
+                    }
+                }, 10000);
+            }
         }
     });
 

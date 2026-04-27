@@ -1,11 +1,11 @@
 {
-  "name": "codeclash_",
+  "name": "codeclash",
   "version": "1.0.0",
-  "description": "",
+  "description": "> **Compete. Code. Conquer.**",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
   "homepage": "https://github.com/arpansinha7/CodeClash_#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "moment": "^2.30.1",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {
