@@ -1,24 +1,16 @@
 {
-  "name": "codeclash",
+  "name": "experiment",
   "version": "1.0.0",
-  "description": "> **Compete. Code. Conquer.**",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arpansinha7/CodeClash_.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/arpansinha7/CodeClash_/issues"
-  },
-  "homepage": "https://github.com/arpansinha7/CodeClash_#readme",
   "dependencies": {
     "express": "^5.2.1",
     "socket.io": "^4.8.3"
