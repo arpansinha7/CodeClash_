@@ -99,7 +99,7 @@
 
         {
         "id": 8,
-        "title": "", 
+        "title": "Binary Search 2", 
         "difficulty": "hard",
         "description": "Given an integer array nums and an integer K. the task is to find wether the integer K is present in array or not. Return true if present otherwise false",
         "functionName": "solution",
